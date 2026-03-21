@@ -10,6 +10,7 @@ import AudioPlayer from "@/components/AudioPlayer";
 import Itinerary from "@/components/Itinerary";
 import WhatsAppRSVP from "@/components/WhatsAppRSVP";
 import DressCode from "@/components/DressCode";
+import Gifts from "@/components/Gifts";
 
 export default function Home() {
   const [isRevealed, setIsRevealed] = useState(false);
@@ -209,6 +210,14 @@ export default function Home() {
           {/*  CÓDIGO DE VESTIMENTA                                   */}
           {/* ────────────────────────────────────────────────────── */}
           <DressCode />
+
+          {/* Separador */}
+          <div className="w-3/4 max-w-sm mx-auto h-px bg-gradient-to-r from-transparent via-gold/25 to-transparent my-12" />
+
+          {/* ────────────────────────────────────────────────────── */}
+          {/*  REGALOS — LLUVIA DE SOBRES                           */}
+          {/* ────────────────────────────────────────────────────── */}
+          <Gifts />
 
         </motion.div>
       )}
