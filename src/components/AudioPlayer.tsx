@@ -1,0 +1,119 @@
+"use client";
+
+import { useState, useEffect, useRef } from "react";
+import { FaMusic, FaPause } from "react-icons/fa";
+import { motion } from "framer-motion";
+
+/**
+ * AudioPlayer — Reproductor de música ambiental del Bosque Encantado.
+ *
+ * ─────────────────────────────────────────────────────────────────────
+ *  🎵  PARA PERSONALIZAR LA MÚSICA:
+ *  1. Coloca tu archivo MP3 en:  /public/music/cancion.mp3
+ *  2. ¡Listo! Se usará automáticamente sin cambiar ningún código.
+ *     Si no hay archivo local, se reproduce una pista ambiental de bosque.
+ * ─────────────────────────────────────────────────────────────────────
+ */
+
+// URL de respaldo — se usa solo si /music/cancion.mp3 no existe
+const FALLBACK_SRC =
+  "https://cdn.pixabay.com/download/audio/2022/01/27/audio_d35a9a81e7.mp3?filename=forest-with-small-river-birds-and-nature-field-recording-6735.mp3";
+const LOCAL_SRC = "/music/cancion.mp3";
+
+export default function AudioPlayer({
+  autoPlayTrigger,
+}: {
+  autoPlayTrigger: boolean;
+}) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Crear el elemento de audio solo en el cliente
+  useEffect(() => {
+    // Intenta primero el archivo local; si falla (404), usa el fallback de internet
+    const audio = new Audio(LOCAL_SRC);
+    audio.loop = true;
+    audio.preload = "none";
+    audioRef.current = audio;
+
+    // Si el archivo local no carga, cambia automáticamente al fallback
+    const handleError = () => {
+      if (audioRef.current && audioRef.current.src !== FALLBACK_SRC) {
+        audioRef.current.src = FALLBACK_SRC;
+      }
+    };
+    audio.addEventListener("error", handleError);
+
+    return () => {
+      audio.removeEventListener("error", handleError);
+      audio.pause();
+      audio.src = "";
+    };
+  }, []);
+
+  // Autoplay con fade-in tras la interacción inicial
+  useEffect(() => {
+    if (!autoPlayTrigger || !audioRef.current) return;
+
+    audioRef.current.volume = 0;
+    const playPromise = audioRef.current.play();
+
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          setIsPlaying(true);
+          // Fade in gradual
+          let vol = 0;
+          const fade = setInterval(() => {
+            if (!audioRef.current) return clearInterval(fade);
+            if (vol < 0.45) {
+              vol = Math.min(vol + 0.03, 0.45);
+              audioRef.current.volume = vol;
+            } else {
+              clearInterval(fade);
+            }
+          }, 150);
+        })
+        .catch(() => {
+          // Autoplay bloqueado por el navegador — el usuario puede
+          // activar manualmente con el botón de música
+        });
+    }
+  }, [autoPlayTrigger]);
+
+  const togglePlay = () => {
+    if (!audioRef.current) return;
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play().catch(console.error);
+    }
+    setIsPlaying((p) => !p);
+  };
+
+  return (
+    <motion.button
+      onClick={togglePlay}
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: 1.5, duration: 0.6 }}
+      className={`fixed top-5 right-5 z-40 w-11 h-11 flex items-center justify-center rounded-full backdrop-blur-md border transition-all duration-300 ${
+        isPlaying
+          ? "bg-moss-green/70 border-gold/40 text-gold-light shadow-[0_0_15px_rgba(212,175,55,0.3)]"
+          : "bg-black/50 border-gold/20 text-foreground/50 hover:border-gold/40 hover:text-gold-light"
+      }`}
+      aria-label={isPlaying ? "Pausar música" : "Reproducir música"}
+      title={isPlaying ? "Pausar música" : "Reproducir música"}
+    >
+      {/* Anillo pulsante cuando reproduce */}
+      {isPlaying && (
+        <motion.div
+          className="absolute inset-0 rounded-full border border-gold/30"
+          animate={{ scale: [1, 1.4, 1], opacity: [0.5, 0, 0.5] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        />
+      )}
+      {isPlaying ? <FaPause size={13} /> : <FaMusic size={13} />}
+    </motion.button>
+  );
+}

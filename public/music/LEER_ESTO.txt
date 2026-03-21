@@ -1,0 +1,16 @@
+🎵 MÚSICA — INSTRUCCIONES
+═══════════════════════════════════════════════════════
+
+1. Coloca aquí tu archivo de música en formato MP3.
+2. Renómbralo exactamente como:  cancion.mp3
+3. La invitación lo reproducirá automáticamente con
+   un fade-in suave al abrir la animación.
+
+Si no tienes un archivo aún, la invitación usará una
+pista ambiental de bosque de ejemplo de Internet.
+
+Para cambiar la pista desde el código:
+  → Abre: src/components/AudioPlayer.tsx
+  → Cambia la variable MUSIC_SRC por: "/music/cancion.mp3"
+
+═══════════════════════════════════════════════════════
