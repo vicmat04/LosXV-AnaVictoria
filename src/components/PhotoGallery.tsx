@@ -14,13 +14,10 @@ import "swiper/css/effect-creative";
 
 /** Lista completa de fotos de la sesión de Ana Victoria */
 const photos = [
-  "/photos/HEN_6346.jpg",
   "/photos/HEN_6170.jpg",
   "/photos/HEN_6174.jpg",
   "/photos/HEN_6263.jpg",
-  "/photos/HEN_6273.jpg",
   "/photos/HEN_6277.jpg",
-  "/photos/HEN_6351.jpg",
 ];
 
 /**
