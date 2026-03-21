@@ -24,21 +24,21 @@ interface Event {
  */
 const events: Event[] = [
   {
-    title: "Ceremonia Religiosa",
-    time: "5:00 PM",
-    location: "Iglesia — Por confirmar",
-    address: "Dirección por confirmar",
-    gmapsLink: "https://maps.google.com",
-    wazeLink: "https://waze.com",
+    time: "17:00",
+    title: "Solemne Eucaristía",
+    location: "Parroquia San Juan Bautista",
+    address: "Aguadulce, Coclé",
+    gmapsLink: "https://maps.app.goo.gl/cmZjnkpc1t7mmrMy7",
+    wazeLink: "https://waze.com/ul?q=Parroquia%20San%20Juan%20Bautista%20Aguadulce",
     icon: <FaChurch className="text-2xl text-gold-light" />,
   },
   {
-    title: "Recepción & Fiesta",
-    time: "7:00 PM",
-    location: "Salón Bosque Encantado",
-    address: "Dirección por confirmar",
-    gmapsLink: "https://maps.google.com",
-    wazeLink: "https://waze.com",
+    time: "19:00",
+    title: "Recepción",
+    location: "Yatch Club Aguadulce",
+    address: "Aguadulce, Coclé",
+    gmapsLink: "https://maps.app.goo.gl/SRAfDMhjnfUdXiiA8",
+    wazeLink: "https://waze.com/ul?q=Yatch%20Club%20Aguadulce",
     icon: <FaGlassCheers className="text-2xl text-gold-light" />,
   },
 ];

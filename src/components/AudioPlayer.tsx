@@ -28,92 +28,91 @@ export default function AudioPlayer({
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Crear el elemento de audio solo en el cliente
+  // Intentar autoplay cuando se revela la invitación
   useEffect(() => {
-    // Intenta primero el archivo local; si falla (404), usa el fallback de internet
-    const audio = new Audio(LOCAL_SRC);
-    audio.loop = true;
-    audio.preload = "none";
-    audioRef.current = audio;
+    const audio = audioRef.current;
+    if (!autoPlayTrigger || !audio) return;
 
-    // Si el archivo local no carga, cambia automáticamente al fallback
-    const handleError = () => {
-      if (audioRef.current && audioRef.current.src !== FALLBACK_SRC) {
-        audioRef.current.src = FALLBACK_SRC;
-      }
-    };
-    audio.addEventListener("error", handleError);
-
-    return () => {
-      audio.removeEventListener("error", handleError);
-      audio.pause();
-      audio.src = "";
-    };
-  }, []);
-
-  // Autoplay con fade-in tras la interacción inicial
-  useEffect(() => {
-    if (!autoPlayTrigger || !audioRef.current) return;
-
-    audioRef.current.volume = 0;
-    const playPromise = audioRef.current.play();
+    // Autoplay con fade-in
+    audio.volume = 0;
+    const playPromise = audio.play();
 
     if (playPromise !== undefined) {
       playPromise
         .then(() => {
           setIsPlaying(true);
-          // Fade in gradual
           let vol = 0;
           const fade = setInterval(() => {
-            if (!audioRef.current) return clearInterval(fade);
             if (vol < 0.45) {
               vol = Math.min(vol + 0.03, 0.45);
-              audioRef.current.volume = vol;
+              audio.volume = vol;
             } else {
               clearInterval(fade);
             }
           }, 150);
         })
         .catch(() => {
-          // Autoplay bloqueado por el navegador — el usuario puede
-          // activar manualmente con el botón de música
+          // Bloqueado por el navegador
+          setIsPlaying(false);
         });
     }
   }, [autoPlayTrigger]);
 
   const togglePlay = () => {
-    if (!audioRef.current) return;
+    const audio = audioRef.current;
+    if (!audio) return;
+
     if (isPlaying) {
-      audioRef.current.pause();
+      audio.pause();
+      setIsPlaying(false);
     } else {
-      audioRef.current.play().catch(console.error);
+      audio.play().then(() => setIsPlaying(true)).catch(console.error);
     }
-    setIsPlaying((p) => !p);
+  };
+
+  const handleError = () => {
+    const audio = audioRef.current;
+    if (audio && audio.src !== FALLBACK_SRC) {
+      audio.src = FALLBACK_SRC;
+      if (isPlaying) audio.play().catch(console.error);
+    }
   };
 
   return (
-    <motion.button
-      onClick={togglePlay}
-      initial={{ opacity: 0, scale: 0.5 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 1.5, duration: 0.6 }}
-      className={`fixed top-5 right-5 z-40 w-11 h-11 flex items-center justify-center rounded-full backdrop-blur-md border transition-all duration-300 ${
-        isPlaying
-          ? "bg-moss-green/70 border-gold/40 text-gold-light shadow-[0_0_15px_rgba(212,175,55,0.3)]"
-          : "bg-black/50 border-gold/20 text-foreground/50 hover:border-gold/40 hover:text-gold-light"
-      }`}
-      aria-label={isPlaying ? "Pausar música" : "Reproducir música"}
-      title={isPlaying ? "Pausar música" : "Reproducir música"}
-    >
-      {/* Anillo pulsante cuando reproduce */}
-      {isPlaying && (
-        <motion.div
-          className="absolute inset-0 rounded-full border border-gold/30"
-          animate={{ scale: [1, 1.4, 1], opacity: [0.5, 0, 0.5] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        />
-      )}
-      {isPlaying ? <FaPause size={13} /> : <FaMusic size={13} />}
-    </motion.button>
+    <>
+      <audio
+        ref={audioRef}
+        src={LOCAL_SRC}
+        loop
+        preload="auto"
+        onError={handleError}
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+      />
+      
+      <motion.button
+        onClick={togglePlay}
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1.5, duration: 0.6 }}
+        className={`fixed top-5 right-5 z-50 w-11 h-11 flex items-center justify-center rounded-full backdrop-blur-md border transition-all duration-300 ${
+          isPlaying
+            ? "bg-moss-green/70 border-gold/40 text-gold-light shadow-[0_0_15px_rgba(212,175,55,0.3)]"
+            : "bg-black/50 border-gold/20 text-foreground/50 hover:border-gold/40 hover:text-gold-light"
+        }`}
+        aria-label={isPlaying ? "Pausar música" : "Reproducir música"}
+        title={isPlaying ? "Pausar música" : "Reproducir música"}
+      >
+        {/* Anillo pulsante cuando reproduce */}
+        {isPlaying && (
+          <motion.div
+            className="absolute inset-0 rounded-full border border-gold/30"
+            animate={{ scale: [1, 1.4, 1], opacity: [0.5, 0, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
+        )}
+        {isPlaying ? <FaPause size={13} /> : <FaMusic size={13} />}
+      </motion.button>
+    </>
   );
 }

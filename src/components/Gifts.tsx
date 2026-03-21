@@ -8,30 +8,22 @@ import { FaEnvelopeOpenText } from "react-icons/fa";
  */
 export default function Gifts() {
   return (
-    <section className="w-full max-w-sm mx-auto px-5 py-8 text-center">
+    <section className="w-full max-w-sm mx-auto px-5 py-6 text-center">
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
+        initial={{ opacity: 0, scale: 0.9 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="flex flex-col items-center"
+        className="relative bg-moss-dark/40 backdrop-blur-md border border-gold/20 rounded-3xl p-6 shadow-[0_0_30px_rgba(212,175,55,0.1)] overflow-hidden"
       >
-        <div className="flex items-center justify-center gap-3 mb-4">
-          <FaEnvelopeOpenText className="text-gold/40 text-lg" />
-          <h2 className="font-serif text-2xl text-gold/80 tracking-widest uppercase">
-            Presentes
-          </h2>
-        </div>
-
-        <div className="inline-block py-2 px-6 border-b border-gold/20 text-gold-light/60 font-serif text-lg italic tracking-wider">
-          Lluvia de Sobres
-        </div>
-
-        {/* Adorno inferior sutil */}
-        <div className="mt-6 flex gap-2">
-          <div className="w-1 h-1 rounded-full bg-gold/20" />
-          <div className="w-1 h-1 rounded-full bg-gold/40" />
-          <div className="w-1 h-1 rounded-full bg-gold/20" />
+        {/* Adorno sutil de fondo */}
+        <div className="absolute -top-10 -right-10 w-32 h-32 bg-gold/5 blur-[40px] rounded-full pointer-events-none" />
+        
+        <div className="flex flex-col items-center gap-3">
+          <FaEnvelopeOpenText size={28} className="text-gold/60 filter drop-shadow-[0_0_8px_rgba(212,175,55,0.2)]" />
+          <div className="text-gold-light/70 font-serif text-lg italic tracking-widest">
+            Lluvia de Sobres
+          </div>
         </div>
       </motion.div>
     </section>

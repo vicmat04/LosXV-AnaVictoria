@@ -68,7 +68,7 @@ export default function PhotoGallery() {
                   src={src}
                   alt={`Ana Victoria — Sesión de fotos ${index + 1}`}
                   fill
-                  className="object-cover object-top"
+                  className="object-contain"
                   sizes="(max-width: 768px) 100vw, 384px"
                   priority={index === 0}
                   loading={index === 0 ? "eager" : "lazy"}
