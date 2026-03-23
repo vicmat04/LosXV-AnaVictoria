@@ -87,6 +87,7 @@ export const receptionTimeline: Event[] = [
   {
     time: "9:45 PM",
     title: "Baile grupal",
+    description: "Coreografía con amigos y grupo de baile.",
     icon: <FaStar className="text-2xl text-gold-light" />,
   },
   {
