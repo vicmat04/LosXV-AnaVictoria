@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { GiLargeDress, GiTie } from "react-icons/gi";
+import { GiLargeDress } from "react-icons/gi";
+import { IoShirtOutline } from "react-icons/io5";
 
 /**
  * DressCode — Sección de código de vestimenta simplificada.
@@ -35,7 +36,7 @@ export default function DressCode() {
             transition={{ delay: 0.2 }}
             className="flex flex-col items-center gap-2"
           >
-            <GiTie size={32} className="filter drop-shadow-[0_0_8px_rgba(212,175,55,0.3)]" />
+            <IoShirtOutline size={32} className="filter drop-shadow-[0_0_8px_rgba(212,175,55,0.3)]" />
           </motion.div>
           <motion.div
             initial={{ opacity: 0, x: 10 }}
@@ -56,31 +57,6 @@ export default function DressCode() {
         </p>
       </motion.div>
 
-      {/* Firma final */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.5 }}
-        className="mt-16 pb-4"
-      >
-        <div className="w-24 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent mx-auto mb-4" />
-        <p className="font-serif italic text-foreground/40 text-sm">
-          Con amor,
-        </p>
-        <p
-          className="font-serif text-2xl text-gold-light/70 mt-1"
-          style={{ 
-            fontFamily: "var(--font-cinzel)",
-            textShadow: "0 0 15px rgba(212,175,55,0.2)" 
-          }}
-        >
-          Ana Victoria
-        </p>
-        <p className="font-sans text-xs tracking-widest uppercase text-foreground/30 mt-2">
-          ✦ 18 · Abril · 2026 ✦
-        </p>
-      </motion.div>
     </section>
   );
 }

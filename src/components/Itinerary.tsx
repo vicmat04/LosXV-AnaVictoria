@@ -5,7 +5,7 @@ import { FaChurch, FaGlassCheers, FaMapMarkerAlt, FaWaze } from "react-icons/fa"
 import { motion } from "framer-motion";
 import MapModal from "./MapModal";
 
-interface Event {
+export interface Event {
   title: string;
   time: string;
   location: string;
@@ -27,28 +27,27 @@ interface Event {
  *    Waze:        https://waze.com/ul?ll=LAT,LON&navigate=yes
  * ─────────────────────────────────────────────────────────────────
  */
-const events: Event[] = [
-  {
-    time: "17:00",
-    title: "Solemne Eucaristía",
-    location: "Colegio Agustiniano, Chitré",
-    address: "Calle Francisco Audía, Chitré",
-    mapQuery: "Colegio Agustiniano Nuestra Señora del Buen Consejo Chitré",
-    gmapsLink: "https://www.google.com/maps/search/?api=1&query=Colegio+Agustiniano+Nuestra+Señora+del+Buen+Consejo+Chitré",
-    wazeLink: "https://waze.com/ul?q=Colegio%20Agustiniano%20Chitre",
-    icon: <FaChurch className="text-2xl text-gold-light" />,
-  },
-  {
-    time: "19:00",
-    title: "Recepción",
-    location: "Club Fulo Araúz, Chitré",
-    address: "Avenida Obaldía, Chitré",
-    mapQuery: "Club Fulo Araúz Chitré",
-    gmapsLink: "https://www.google.com/maps/search/?api=1&query=Club+Fulo+Araúz+Chitré",
-    wazeLink: "https://waze.com/ul?q=Club%20Fulo%20Arauz%20Chitre",
-    icon: <FaGlassCheers className="text-2xl text-gold-light" />,
-  },
-];
+export const eucharistEvent: Event = {
+  time: "4 de octubre\n7:00 PM",
+  title: "Eucaristía",
+  location: "Colegio Agustiniano, Chitré",
+  address: "Calle Francisco Audía, Chitré",
+  mapQuery: "Colegio Agustiniano Nuestra Señora del Buen Consejo Chitré",
+  gmapsLink: "https://www.google.com/maps/search/?api=1&query=Colegio+Agustiniano+Nuestra+Señora+del+Buen+Consejo+Chitré",
+  wazeLink: "https://waze.com/ul?q=Colegio%20Agustiniano%20Chitre",
+  icon: <FaChurch className="text-2xl text-gold-light" />,
+};
+
+export const receptionEvent: Event = {
+  time: "18 de abril · 7:30 PM",
+  title: "Recepción",
+  location: "Club Fulo Araúz, Chitré",
+  address: "Avenida Obaldía, Chitré",
+  mapQuery: "Club Fulo Araúz Chitré",
+  gmapsLink: "https://www.google.com/maps/search/?api=1&query=Club+Fulo+Araúz+Chitré",
+  wazeLink: "https://waze.com/ul?q=Club%20Fulo%20Arauz%20Chitre",
+  icon: <FaGlassCheers className="text-2xl text-gold-light" />,
+};
 
 interface ModalState {
   locationName: string;
@@ -58,7 +57,13 @@ interface ModalState {
   appName: "Maps" | "Waze";
 }
 
-export default function Itinerary() {
+interface ItineraryProps {
+  title?: string;
+  showTitle?: boolean;
+  events?: Event[];
+}
+
+export default function Itinerary({ title = "Itinerario", showTitle = true, events = [eucharistEvent, receptionEvent] }: ItineraryProps) {
   const [modal, setModal] = useState<ModalState | null>(null);
 
   const openModal = (evt: Event, app: "Maps" | "Waze") => {
@@ -74,14 +79,16 @@ export default function Itinerary() {
   return (
     <>
       <section className="w-full max-w-sm mx-auto px-5 py-4">
-        <motion.h2
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="font-serif text-3xl text-gold text-center mb-10"
-        >
-          ✦ Itinerario ✦
-        </motion.h2>
+        {showTitle && (
+          <motion.h2
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="font-serif text-3xl text-gold text-center mb-10"
+          >
+            ✦ {title} ✦
+          </motion.h2>
+        )}
 
         <div className="relative">
           {/* Línea vertical decorativa */}
@@ -104,7 +111,7 @@ export default function Itinerary() {
 
                 {/* Contenido */}
                 <div className="flex-1 bg-moss-dark/50 backdrop-blur-sm border border-moss-light/20 rounded-2xl p-5 shadow-md">
-                  <p className="font-sans text-xs uppercase tracking-widest text-gold/60 mb-1">
+                  <p className="font-sans text-xs uppercase tracking-widest text-gold/60 mb-1 whitespace-pre-line">
                     {evt.time}
                   </p>
                   <h3 className="font-serif text-xl text-gold-light mb-1">
