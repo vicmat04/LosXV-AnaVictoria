@@ -12,9 +12,22 @@ import WhatsAppRSVP from "@/components/WhatsAppRSVP";
 import DressCode from "@/components/DressCode";
 import Gifts from "@/components/Gifts";
 import VerticalTimeline from "@/components/VerticalTimeline";
+import AdminPanel from "@/components/AdminPanel";
 
 export default function Home() {
   const [isRevealed, setIsRevealed] = useState(false);
+  const [secretClicks, setSecretClicks] = useState(0);
+  const [showAdmin, setShowAdmin] = useState(false);
+
+  const handleSecretClick = () => {
+    setSecretClicks(prev => {
+      if (prev + 1 >= 3) {
+        setShowAdmin(true);
+        return 0;
+      }
+      return prev + 1;
+    });
+  };
 
   // ──────────────────────────────────────────────────────────────
   //  FECHA DEL EVENTO: 18 de abril de 2026 a las 7:30 PM (Recepción)
@@ -71,7 +84,8 @@ export default function Home() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 1 }}
-              className="text-gold-light text-2xl tracking-[0.3em] mb-4 select-none"
+              className="text-gold-light text-2xl tracking-[0.3em] mb-4 select-none cursor-pointer"
+              onClick={handleSecretClick}
               aria-hidden
             >
               ✦ ❧ ✦
@@ -269,6 +283,9 @@ export default function Home() {
 
       {/* ── Botón RSVP flotante (siempre visible tras reveal) ── */}
       {isRevealed && <WhatsAppRSVP />}
+
+      {/* ── Panel Secreto de Admin ── */}
+      <AdminPanel isOpen={showAdmin} onClose={() => setShowAdmin(false)} />
     </main>
   );
 }

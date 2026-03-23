@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FaWhatsapp, FaTimes } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { pauseAudio } from "@/lib/audioControl";
+import { supabase } from "@/lib/supabase";
 
 /**
  * WhatsAppRSVP — Botón flotante de confirmación de asistencia.
@@ -51,6 +52,8 @@ const options = [
 
 export default function WhatsAppRSVP() {
   const [isOpen, setIsOpen] = useState(false);
+  const [guestName, setGuestName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <>
@@ -83,19 +86,59 @@ export default function WhatsAppRSVP() {
               <h3 className="font-serif text-2xl text-gold text-center mb-1">
                 Confirmar Asistencia
               </h3>
-              <p className="font-sans text-xs text-muted text-center tracking-wider mb-6">
-                ¿A quién deseas confirmar?
+              
+              <div className="max-w-xs mx-auto mt-4 mb-4">
+                <input
+                  type="text"
+                  placeholder="Tu Nombre y Apellido"
+                  value={guestName}
+                  onChange={(e) => setGuestName(e.target.value)}
+                  disabled={isLoading}
+                  className="w-full bg-black/40 border border-gold/30 rounded-xl px-4 py-3 text-gold-light placeholder:text-gold/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/50 font-sans text-sm text-center"
+                />
+              </div>
+
+              <p className="font-sans text-xs text-muted text-center tracking-wider mb-4">
+                ¿A quién deseas enviar el mensaje?
               </p>
 
               <div className="space-y-3 max-w-xs mx-auto">
                 {options.map((opt) => (
                   <button
                     key={opt.id}
-                    className={`flex items-center gap-4 w-full p-4 rounded-2xl border bg-gradient-to-r ${opt.color} transition-all active:scale-95`}
-                    onClick={() => {
+                    disabled={isLoading}
+                    className={`flex items-center gap-4 w-full p-4 rounded-2xl border bg-gradient-to-r ${opt.color} transition-all active:scale-95 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    onClick={async () => {
+                      if (!guestName.trim()) {
+                        alert("Por favor, ingresa tu Nombre y Apellido para continuar.");
+                        return;
+                      }
+
+                      setIsLoading(true);
+                      
+                      try {
+                        // Guardar en Supabase
+                        await supabase.from("guests").insert([{ 
+                          name: guestName.trim(), 
+                          confirmed_to: opt.label 
+                        }]);
+                      } catch (error) {
+                        console.error("Error saving to db", error);
+                      }
+                      
+                      setIsLoading(false);
                       pauseAudio();
-                      window.open(buildWaLink(opt.phone, opt.message), "_blank", "noopener,noreferrer");
-                      setTimeout(() => setIsOpen(false), 300);
+                      
+                      // Mensaje modificado
+                      const customMessage = `¡Hola! Soy *${guestName.trim()}*. ` + 
+                        (opt.id === "ana" ? "Confirmo mi asistencia para celebrar tus XV años en el Bosque Encantado. 🌿✨" : "Confirmo mi asistencia a los XV años de Ana Victoria en el Bosque Encantado. 🌿✨");
+
+                      window.open(buildWaLink(opt.phone, customMessage), "_blank", "noopener,noreferrer");
+                      
+                      setTimeout(() => {
+                        setIsOpen(false);
+                        setGuestName("");
+                      }, 500);
                     }}
                   >
                     <div className={`w-10 h-10 flex items-center justify-center rounded-full bg-black/30 ${opt.iconColor}`}>
