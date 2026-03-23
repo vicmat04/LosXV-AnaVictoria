@@ -58,7 +58,7 @@ export default function LeafReveal({ onReveal }: { onReveal: () => void }) {
                 alt="Bosque derecho"
                 fill
                 className="object-cover scale-150 opacity-70 mix-blend-luminosity"
-                style={{ objectPosition: "20% 8%" }}
+                style={{ objectPosition: "35% 2%" }}
                 priority
               />
               <div className="absolute inset-0 bg-moss-green/60 mix-blend-multiply" />
