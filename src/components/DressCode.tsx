@@ -28,25 +28,32 @@ export default function DressCode() {
         <div className="absolute -top-10 -right-10 w-32 h-32 bg-gold/5 blur-[40px] rounded-full pointer-events-none" />
         <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-moss-light/5 blur-[40px] rounded-full pointer-events-none" />
 
-        <div className="flex justify-center gap-6 mb-4 text-gold-light/60">
-          <motion.div
-            initial={{ opacity: 0, x: -10 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="flex flex-col items-center gap-2"
-          >
-            <IoShirtOutline size={28} className="filter drop-shadow-[0_0_8px_rgba(212,175,55,0.3)]" />
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 10 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            className="flex flex-col items-center gap-2"
-          >
-            <GiLargeDress size={28} className="filter drop-shadow-[0_0_8px_rgba(212,175,55,0.3)]" />
-          </motion.div>
+        <div className="flex flex-col gap-6 mb-4 w-full">
+          {[28, 32, 34, 36].map((s) => (
+            <div key={s} className="flex flex-col items-center">
+              <p className="font-sans text-[10px] text-gold/40 mb-2 tracking-widest uppercase">Tamaño {s}px</p>
+              <div className="flex justify-center gap-6 text-gold-light/60">
+                <motion.div
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="flex flex-col items-center gap-2"
+                >
+                  <IoShirtOutline size={s} className="filter drop-shadow-[0_0_8px_rgba(212,175,55,0.3)]" />
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, x: 10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                  className="flex flex-col items-center gap-2"
+                >
+                  <GiLargeDress size={s} className="filter drop-shadow-[0_0_8px_rgba(212,175,55,0.3)]" />
+                </motion.div>
+              </div>
+            </div>
+          ))}
         </div>
 
         <p className="font-serif text-base text-gold-light mb-1">
