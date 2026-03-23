@@ -36,7 +36,7 @@ export default function DressCode() {
             transition={{ delay: 0.2 }}
             className="flex flex-col items-center gap-2"
           >
-            <IoShirtOutline size={24} className="filter drop-shadow-[0_0_8px_rgba(212,175,55,0.3)]" />
+            <IoShirtOutline size={28} className="filter drop-shadow-[0_0_8px_rgba(212,175,55,0.3)]" />
           </motion.div>
           <motion.div
             initial={{ opacity: 0, x: 10 }}
@@ -45,7 +45,7 @@ export default function DressCode() {
             transition={{ delay: 0.3 }}
             className="flex flex-col items-center gap-2"
           >
-            <GiLargeDress size={24} className="filter drop-shadow-[0_0_8px_rgba(212,175,55,0.3)]" />
+            <GiLargeDress size={28} className="filter drop-shadow-[0_0_8px_rgba(212,175,55,0.3)]" />
           </motion.div>
         </div>
 
