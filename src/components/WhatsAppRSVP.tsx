@@ -54,6 +54,7 @@ export default function WhatsAppRSVP() {
   const [isOpen, setIsOpen] = useState(false);
   const [guestName, setGuestName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   return (
     <>
@@ -87,16 +88,40 @@ export default function WhatsAppRSVP() {
                 Confirmar Asistencia
               </h3>
               
-              <div className="max-w-xs mx-auto mt-4 mb-4">
+              <motion.div 
+                className="max-w-xs mx-auto mt-4 mb-8 relative z-10"
+                animate={error ? { x: [-10, 10, -8, 8, -4, 4, 0] } : { x: 0 }}
+                transition={{ duration: 0.4 }}
+              >
                 <input
                   type="text"
                   placeholder="Tu Nombre y Apellido"
                   value={guestName}
-                  onChange={(e) => setGuestName(e.target.value)}
+                  onChange={(e) => {
+                    setGuestName(e.target.value);
+                    if (error) setError(false);
+                  }}
                   disabled={isLoading}
-                  className="w-full bg-black/40 border border-gold/30 rounded-xl px-4 py-3 text-gold-light placeholder:text-gold/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/50 font-sans text-sm text-center"
+                  className={`w-full bg-black/40 border rounded-xl px-4 py-3 text-gold-light placeholder:text-gold/40 focus:outline-none focus:ring-1 font-sans text-sm text-center transition-colors ${
+                    error 
+                      ? 'border-red-500 shadow-[0_0_15px_rgba(239,68,68,0.3)] focus:border-red-400 focus:ring-red-400/50' 
+                      : 'border-gold/30 focus:border-gold focus:ring-gold/50'
+                  }`}
                 />
-              </div>
+                
+                <AnimatePresence>
+                  {error && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      className="absolute -bottom-6 left-0 right-0 text-center text-red-400 text-[11px] font-sans tracking-wide"
+                    >
+                      Por favor, necesitamos saber tu nombre.
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+              </motion.div>
 
               <p className="font-sans text-xs text-muted text-center tracking-wider mb-4">
                 ¿A quién deseas enviar el mensaje?
@@ -110,7 +135,8 @@ export default function WhatsAppRSVP() {
                     className={`flex items-center gap-4 w-full p-4 rounded-2xl border bg-gradient-to-r ${opt.color} transition-all active:scale-95 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
                     onClick={async () => {
                       if (!guestName.trim()) {
-                        alert("Por favor, ingresa tu Nombre y Apellido para continuar.");
+                        setError(true);
+                        setTimeout(() => setError(false), 2500); // Resetea el error después de 2.5s
                         return;
                       }
 
