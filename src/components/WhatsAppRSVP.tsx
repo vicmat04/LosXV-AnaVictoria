@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FaWhatsapp, FaTimes } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import { pauseAudio } from "@/lib/audioControl";
 
 /**
  * WhatsAppRSVP — Botón flotante de confirmación de asistencia.
@@ -88,13 +89,14 @@ export default function WhatsAppRSVP() {
 
               <div className="space-y-3 max-w-xs mx-auto">
                 {options.map((opt) => (
-                  <a
+                  <button
                     key={opt.id}
-                    href={buildWaLink(opt.phone, opt.message)}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className={`flex items-center gap-4 w-full p-4 rounded-2xl border bg-gradient-to-r ${opt.color} transition-all active:scale-95`}
-                    onClick={() => setTimeout(() => setIsOpen(false), 300)}
+                    onClick={() => {
+                      pauseAudio();
+                      window.open(buildWaLink(opt.phone, opt.message), "_blank", "noopener,noreferrer");
+                      setTimeout(() => setIsOpen(false), 300);
+                    }}
                   >
                     <div className={`w-10 h-10 flex items-center justify-center rounded-full bg-black/30 ${opt.iconColor}`}>
                       <FaWhatsapp size={20} />
@@ -109,7 +111,7 @@ export default function WhatsAppRSVP() {
                     </div>
                     {/* Flecha */}
                     <span className="text-foreground/30 text-lg">›</span>
-                  </a>
+                  </button>
                 ))}
               </div>
 

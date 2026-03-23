@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { FaMusic, FaPause } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { registerAudio } from "@/lib/audioControl";
 
 /**
  * AudioPlayer — Reproductor de música ambiental del Bosque Encantado.
@@ -40,6 +41,12 @@ export default function AudioPlayer({
     };
     document.addEventListener("visibilitychange", handleVisibility);
     return () => document.removeEventListener("visibilitychange", handleVisibility);
+  }, []);
+
+  // Registrar el elemento de audio en el singleton de control
+  useEffect(() => {
+    registerAudio(audioRef.current);
+    return () => registerAudio(null);
   }, []);
 
   // Intentar autoplay cuando se revela la invitación
