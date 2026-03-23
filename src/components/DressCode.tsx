@@ -12,7 +12,7 @@ export default function DressCode() {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        className="font-serif text-3xl text-gold mb-6"
+        className="font-serif text-2xl text-gold mb-6"
       >
         ✦ Código de Vestimenta ✦
       </motion.h2>
@@ -22,7 +22,7 @@ export default function DressCode() {
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="relative bg-moss-dark/40 backdrop-blur-md border border-gold/20 rounded-3xl p-8 shadow-[0_0_30px_rgba(212,175,55,0.1)] overflow-hidden"
+        className="relative bg-moss-dark/40 backdrop-blur-md border border-gold/20 rounded-3xl p-6 shadow-[0_0_30px_rgba(212,175,55,0.1)] overflow-hidden"
       >
         {/* Adorno sutil de fondo */}
         <div className="absolute -top-10 -right-10 w-32 h-32 bg-gold/5 blur-[40px] rounded-full pointer-events-none" />
@@ -49,7 +49,7 @@ export default function DressCode() {
           </motion.div>
         </div>
 
-        <p className="font-serif text-xl text-gold-light mb-2">
+        <p className="font-serif text-lg text-gold-light mb-2">
           Semi-formal
         </p>
         <p className="font-sans text-xs uppercase tracking-[0.3em] text-foreground/50 italic">
