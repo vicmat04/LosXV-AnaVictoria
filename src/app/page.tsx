@@ -11,7 +11,7 @@ import Itinerary, { eucharistEvent, receptionEvent, receptionTimeline } from "@/
 import WhatsAppRSVP from "@/components/WhatsAppRSVP";
 import DressCode from "@/components/DressCode";
 import Gifts from "@/components/Gifts";
-import CompactProgram from "@/components/CompactProgram";
+import VerticalTimeline from "@/components/VerticalTimeline";
 
 export default function Home() {
   const [isRevealed, setIsRevealed] = useState(false);
@@ -196,17 +196,9 @@ export default function Home() {
           <div className="w-3/4 max-w-sm mx-auto h-px bg-gradient-to-r from-transparent via-gold/25 to-transparent my-12" />
 
           {/* ────────────────────────────────────────────────────── */}
-          {/*  PROGRAMA / TIMELINE                                    */}
+          {/*  PROGRAMA (LÍNEA DE TIEMPO VERTICAL)                    */}
           {/* ────────────────────────────────────────────────────── */}
-          <Itinerary title="Programa (Opción Normal)" showTitle={true} events={receptionTimeline} />
-
-          {/* Separador */}
-          <div className="w-3/4 max-w-sm mx-auto h-px bg-gradient-to-r from-transparent via-gold/25 to-transparent my-12" />
-
-          {/* ────────────────────────────────────────────────────── */}
-          {/*  PROGRAMA COMPACTO (OPCIÓN 2)                           */}
-          {/* ────────────────────────────────────────────────────── */}
-          <CompactProgram />
+          <VerticalTimeline />
 
           {/* Separador */}
           <div className="w-3/4 max-w-sm mx-auto h-px bg-gradient-to-r from-transparent via-gold/25 to-transparent my-12" />
