@@ -29,7 +29,7 @@ export interface Event {
  * ─────────────────────────────────────────────────────────────────
  */
 export const eucharistEvent: Event = {
-  time: "Sábado 4 de octubre\n6:00 PM",
+  time: "Sábado 4 de abril\n6:00 PM",
   title: "Eucaristía",
   location: "Salón Talavera, Colegio Agustiniano, Chitré",
   address: "Calle Francisco Audía, Chitré",
@@ -40,7 +40,7 @@ export const eucharistEvent: Event = {
 };
 
 export const receptionEvent: Event = {
-  time: "18 de abril · 7:30 PM",
+  time: "4 de abril · 7:30 PM",
   title: "Recepción",
   location: "Club Fulo Araúz, Chitré",
   address: "Avenida Obaldía, Chitré",

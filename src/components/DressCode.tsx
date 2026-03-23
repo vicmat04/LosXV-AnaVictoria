@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import { GiLargeDress } from "react-icons/gi";
-import { IoShirtOutline } from "react-icons/io5";
+import { GiLargeDress, GiTie } from "react-icons/gi";
 
 /**
  * DressCode — Sección de código de vestimenta simplificada.
@@ -37,7 +36,7 @@ export default function DressCode() {
             transition={{ delay: 0.2 }}
             className="flex flex-col items-center gap-2"
           >
-            <IoShirtOutline size={28} className="filter drop-shadow-[0_0_8px_rgba(212,175,55,0.3)]" />
+            <GiTie size={28} className="filter drop-shadow-[0_0_8px_rgba(212,175,55,0.3)]" />
           </motion.div>
           <motion.div
              initial={{ opacity: 0, x: 10 }}

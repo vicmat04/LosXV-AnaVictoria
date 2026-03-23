@@ -49,14 +49,14 @@ export default function PhotoGallery() {
             next: { translate: ["100%", 0, 0] },
           }}
           pagination={{
-            clickable: true,
+            clickable: false,
             dynamicBullets: true,
           }}
           autoplay={{
             delay: 3500,
             disableOnInteraction: false,
-            pauseOnMouseEnter: true,
           }}
+          allowTouchMove={false}
           loop={true}
           speed={700}
           style={{ height: "70vh", maxHeight: "560px" } as React.CSSProperties}
