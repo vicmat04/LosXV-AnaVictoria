@@ -54,11 +54,11 @@ export default function LeafReveal({ onReveal }: { onReveal: () => void }) {
               transition={{ duration: 1.4, ease: [0.645, 0.045, 0.355, 1.0] }}
             >
               <Image
-                src="/photos/HEN_6170.jpg"
+                src="/photos/HEN_6170 - rigth.jpg"
                 alt="Bosque derecho"
                 fill
                 className="object-cover scale-150 opacity-70 mix-blend-luminosity"
-                style={{ objectPosition: "35% 2%" }}
+                style={{ objectPosition: "35% top" }}
                 priority
               />
               <div className="absolute inset-0 bg-moss-green/60 mix-blend-multiply" />
