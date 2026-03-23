@@ -7,10 +7,11 @@ import Fireflies from "@/components/Fireflies";
 import PhotoGallery from "@/components/PhotoGallery";
 import Countdown from "@/components/Countdown";
 import AudioPlayer from "@/components/AudioPlayer";
-import Itinerary, { eucharistEvent, receptionEvent } from "@/components/Itinerary";
+import Itinerary, { eucharistEvent, receptionEvent, receptionTimeline } from "@/components/Itinerary";
 import WhatsAppRSVP from "@/components/WhatsAppRSVP";
 import DressCode from "@/components/DressCode";
 import Gifts from "@/components/Gifts";
+import CompactProgram from "@/components/CompactProgram";
 
 export default function Home() {
   const [isRevealed, setIsRevealed] = useState(false);
@@ -189,7 +190,23 @@ export default function Home() {
           {/* ────────────────────────────────────────────────────── */}
           {/*  RECEPCIÓN                                              */}
           {/* ────────────────────────────────────────────────────── */}
-          <Itinerary title="Itinerario" showTitle={true} events={[receptionEvent]} />
+          <Itinerary title="Recepción" showTitle={true} events={[receptionEvent]} />
+
+          {/* Separador */}
+          <div className="w-3/4 max-w-sm mx-auto h-px bg-gradient-to-r from-transparent via-gold/25 to-transparent my-12" />
+
+          {/* ────────────────────────────────────────────────────── */}
+          {/*  PROGRAMA / TIMELINE                                    */}
+          {/* ────────────────────────────────────────────────────── */}
+          <Itinerary title="Programa (Opción Normal)" showTitle={true} events={receptionTimeline} />
+
+          {/* Separador */}
+          <div className="w-3/4 max-w-sm mx-auto h-px bg-gradient-to-r from-transparent via-gold/25 to-transparent my-12" />
+
+          {/* ────────────────────────────────────────────────────── */}
+          {/*  PROGRAMA COMPACTO (OPCIÓN 2)                           */}
+          {/* ────────────────────────────────────────────────────── */}
+          <CompactProgram />
 
           {/* Separador */}
           <div className="w-3/4 max-w-sm mx-auto h-px bg-gradient-to-r from-transparent via-gold/25 to-transparent my-12" />
