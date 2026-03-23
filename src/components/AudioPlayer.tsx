@@ -55,6 +55,7 @@ export default function AudioPlayer({
     if (!autoPlayTrigger || !audio) return;
 
     // Autoplay con fade-in
+    audio.currentTime = 5;
     audio.volume = 0;
     const playPromise = audio.play();
 
