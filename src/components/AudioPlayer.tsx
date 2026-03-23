@@ -28,6 +28,20 @@ export default function AudioPlayer({
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  // Pausar música cuando el usuario abandona o minimiza la página
+  useEffect(() => {
+    const handleVisibility = () => {
+      const audio = audioRef.current;
+      if (!audio) return;
+      if (document.hidden && !audio.paused) {
+        audio.pause();
+        setIsPlaying(false);
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => document.removeEventListener("visibilitychange", handleVisibility);
+  }, []);
+
   // Intentar autoplay cuando se revela la invitación
   useEffect(() => {
     const audio = audioRef.current;
