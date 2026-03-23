@@ -17,9 +17,9 @@ export default function Home() {
   const [isRevealed, setIsRevealed] = useState(false);
 
   // ──────────────────────────────────────────────────────────────
-  //  FECHA DEL EVENTO: 4 de abril de 2026 a las 7:30 PM (Recepción)
+  //  FECHA DEL EVENTO: 18 de abril de 2026 a las 7:30 PM (Recepción)
   // ──────────────────────────────────────────────────────────────
-  const eventDate = "2026-04-04T19:30:00";
+  const eventDate = "2026-04-18T19:30:00";
 
   return (
     <main className="relative min-h-screen w-full pb-32 overflow-x-hidden">
@@ -152,7 +152,7 @@ export default function Home() {
                     "0 0 18px rgba(212,175,55,0.7), 0 0 48px rgba(212,175,55,0.3)",
                 }}
               >
-                4 de abril · 2026
+                18 de abril · 2026
               </p>
             </motion.div>
 
@@ -216,7 +216,7 @@ export default function Home() {
               ✦ Faltan ✦
             </motion.h2>
             <p className="font-sans text-xs text-muted tracking-widest uppercase mb-6">
-              4 de Abril · 7:30 PM
+              18 de Abril · 7:30 PM
             </p>
             <Countdown targetDate={eventDate} />
           </section>
@@ -257,7 +257,7 @@ export default function Home() {
                 Ana Victoria
               </p>
               <p className="font-sans text-xs tracking-widest uppercase text-foreground/30 mt-2">
-                ✦ 4 · Abril · 2026 ✦
+                ✦ 18 · Abril · 2026 ✦
               </p>
             </motion.div>
 

@@ -40,7 +40,7 @@ export const eucharistEvent: Event = {
 };
 
 export const receptionEvent: Event = {
-  time: "4 de abril · 7:30 PM",
+  time: "18 de abril · 7:30 PM",
   title: "Recepción",
   location: "Club Fulo Araúz, Chitré",
   address: "Avenida Obaldía, Chitré",
