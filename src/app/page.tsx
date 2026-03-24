@@ -280,7 +280,7 @@ export default function Home() {
             {/* ── Marketing Footer ── */}
             <div className="mt-20 text-center">
               <a
-                href="https://wa.me/50765217447?text=Hola!%20Me%20encant%C3%B3%20esta%20invitaci%C3%B3n%20digital%20interactiva.%20Quisiera%20pedir%20informaci%C3%B3n%20para%20un%20evento."
+                href="https://wa.me/50767005805?text=Hola!%20Me%20encant%C3%B3%20esta%20invitaci%C3%B3n%20digital%20interactiva.%20Quisiera%20pedir%20informaci%C3%B3n%20para%20un%20evento."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-block"
