@@ -276,6 +276,24 @@ export default function Home() {
             </motion.div>
 
             <Gifts />
+            
+            {/* ── Marketing Footer ── */}
+            <div className="mt-20 text-center">
+              <a
+                href="https://wa.me/50765217447?text=Hola!%20Me%20encant%C3%B3%20esta%20invitaci%C3%B3n%20digital%20interactiva.%20Quisiera%20pedir%20informaci%C3%B3n%20para%20un%20evento."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-block"
+              >
+                <div className="w-16 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent mx-auto mb-3" />
+                <p className="font-sans text-[10px] text-foreground/30 group-hover:text-gold/80 transition-colors duration-300 leading-tight tracking-wider">
+                  Invitación digital interactiva creada con 💛<br/>
+                  ¿Quieres una así para tu próximo evento? <br className="md:hidden" />
+                  <span className="underline decoration-gold/30 underline-offset-2">Contáctanos aquí</span>
+                </p>
+              </a>
+            </div>
+            
           </section>
 
         </motion.div>
