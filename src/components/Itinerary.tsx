@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FaChurch, FaGlassCheers, FaMapMarkerAlt, FaWaze, FaUsers, FaUtensils, FaCrown, FaRing, FaMusic, FaMask, FaStar } from "react-icons/fa";
+import { FaChurch, FaGlassCheers, FaMapMarkerAlt, FaWaze, FaUsers, FaUtensils, FaCrown, FaRing, FaMusic, FaMask, FaStar, FaConciergeBell } from "react-icons/fa";
 import { motion } from "framer-motion";
 import MapModal from "./MapModal";
 
@@ -81,8 +81,8 @@ export const receptionTimeline: Event[] = [
   },
   {
     time: "9:10 PM",
-    title: "Servida del brindis",
-    icon: <FaGlassCheers className="text-2xl text-gold-light" />,
+    title: "Buffet",
+    icon: <FaConciergeBell className="text-2xl text-gold-light" />,
   },
   {
     time: "9:45 PM",
